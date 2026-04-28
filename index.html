@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Loading...</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      overflow: hidden;
+    }
+
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+<video id="vid" autoplay muted playsinline>
+  <source src="video.mp4" type="video/mp4">
+</video>
+
+<script>
+  const video = document.getElementById("vid");
+
+  // Try to force unmute after load (usually blocked)
+  window.addEventListener("load", () => {
+    video.muted = false;
+
+    video.play().catch(err => {
+      console.log("Autoplay blocked:", err);
+    });
+
+    // Try fullscreen (will likely fail)
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    }
+  });
+</script>
+
+</body>
+</html>
